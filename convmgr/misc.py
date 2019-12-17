@@ -3,7 +3,7 @@
 import os
 import argparse
 
-def parseArgs(  ):
+def parseArgs( ):
     parser = argparse.ArgumentParser( description='Conversion Manager' )
     parser.add_argument( '-d', '--workPath', type=str, required=True, help='Root directory of path to be managed' )
     parser.add_argument( '-i', '--inputDir', type=str, required=False, default='Input', help='Relative dir inside workPath for input directory' )
