@@ -23,5 +23,5 @@ steps:
    pip3 install -r requirements.txt
   displayName: 'Install Python Dependencies'
 - script: |
-   pytest
+   pytest --cov=convmgr --cov-report=xml
   displayName: 'Build Test Application'
