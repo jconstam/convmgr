@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 
 import os
-import json
 import argparse
 
 def parseArgs(  ):
@@ -22,10 +21,3 @@ def setupDirectories( args ):
     createDir( os.path.join( root, args.inputDir ) )
     createDir( os.path.join( root, args.outputDir ) )
     createDir( os.path.join( root, args.watchDir ) )
-
-def main( ):
-    args = parseArgs( )
-    setupDirectories( args )
-
-if __name__ == '__main__':
-    main( )

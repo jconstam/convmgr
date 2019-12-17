@@ -1,7 +1,7 @@
 import os
 import pytest
 
-from convmgr import *
+from convmgr import misc
 
 def test_createDir():
     testPath = os.path.realpath( 'testDir' )
@@ -9,10 +9,10 @@ def test_createDir():
         os.rmdir( testPath )
     assert not os.path.exists( testPath )
 
-    # convmgr.createDir( testPath )
-    # assert os.path.exists( testPath )
+    misc.createDir( testPath )
+    assert os.path.exists( testPath )
     
-    # convmgr.createDir( testPath )
-    # assert os.path.exists( testPath )
+    misc.createDir( testPath )
+    assert os.path.exists( testPath )
     
-    # os.rmdir( testPath )
+    os.rmdir( testPath )
