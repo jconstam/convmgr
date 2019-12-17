@@ -130,3 +130,9 @@ dmypy.json
 
 # Test output
 test-output.xml
+
+# VS Code Metadata
+.vscode/
+
+# Python VEnv
+venv/

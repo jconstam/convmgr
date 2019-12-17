@@ -4,7 +4,7 @@ import os
 import json
 import argparse
 
-def parseArgs( ):
+def parseArgs(  ):
     parser = argparse.ArgumentParser( description='Conversion Manager' )
     parser.add_argument( '-d', '--workPath', type=str, required=True, help='Root directory of path to be managed' )
     parser.add_argument( '-i', '--inputDir', type=str, required=False, default='Input', help='Relative dir inside workPath for input directory' )
@@ -23,6 +23,9 @@ def setupDirectories( args ):
     createDir( os.path.join( root, args.outputDir ) )
     createDir( os.path.join( root, args.watchDir ) )
 
-if __name__ == '__main__':
+def main( ):
     args = parseArgs( )
     setupDirectories( args )
+
+if __name__ == '__main__':
+    main( )
