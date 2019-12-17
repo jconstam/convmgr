@@ -1,0 +1,21 @@
+# Azure DevOps CI Configuration
+
+pool:
+  name: Hosted Ubuntu 1604
+
+steps:
+- task: UsePythonVersion@0
+  displayName: 'Set Environment to use Python 3.6'
+  inputs:
+    versionSpec: 3.6
+- script: |
+   sudo apt-get update
+   sudo apt-get install python3-pip -y
+  displayName: 'Install Ubuntu Packages'
+- script: |
+   python3 -m pip install --upgrade pip
+   pip3 install -r requirements.txt
+  displayName: 'Install Python Dependencies'
+- script: |
+   ./test.sh
+  displayName: 'Build Test Application'
