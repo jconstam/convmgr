@@ -6,7 +6,7 @@
         {
             "label": "Run pytest",
             "type": "shell",
-            "command": "pytest --cov=convmgr --cov-report=term",
+            "command": "pytest -v --cov=convmgr --cov-report=term",
             "group": {
                 "kind": "build",
                 "isDefault": true
