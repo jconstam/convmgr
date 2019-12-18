@@ -46,7 +46,14 @@ def test_addDataNotEmpty( testDataNotEmpty, type ):
 def test_readWriteFile( testDataNotEmpty ):
     if os.path.exists( filePath ):
         os.remove( filePath )
+    
+    assert not os.path.exists( filePath )
+
+    if os.path.exists( filePath ):
+        os.remove( filePath )
     testDataNotEmpty.saveFile( )
+
+    assert os.path.exists( filePath )
 
     newData = status.convmgrstatus( rootPath )
     newData.loadFile( )
