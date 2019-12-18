@@ -4,7 +4,7 @@ import pytest
 from convmgr import status
 
 rootPath = os.path.dirname( os.path.realpath( __file__ ) )
-filePath = os.path.join( rootPath, '.convmgrstatus.json' )
+filePath = os.path.join( rootPath, status.convmgrstatus.fileName )
 
 @pytest.fixture
 def testData( ):

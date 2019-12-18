@@ -9,9 +9,11 @@ class FILE_STATUS( Enum ):
     DONE = 3
 
 class convmgrstatus:
+    fileName = '.convmgrstatus'
+
     def __init__( self, rootPath ):
         self.clearData( )
-        self.fileName = os.path.join( rootPath, '.convmgrstatus.json' )
+        self.fileName = os.path.join( rootPath, convmgrstatus.fileName )
 
     def loadFile( self ):
         with open( self.fileName, 'r' ) as json_file:
