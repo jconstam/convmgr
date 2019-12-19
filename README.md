@@ -8,6 +8,7 @@ Supports Python 3.5, 3.6, 3.7, 3.8
 
 [![Build Status](https://dev.azure.com/callmebob0963/GitHub%20Projects/_apis/build/status/jconstam.convmgr?branchName=master)](https://dev.azure.com/callmebob0963/GitHub%20Projects/_build/latest?definitionId=8&branchName=master)
 [![Build Status](https://travis-ci.org/jconstam/convmgr.svg?branch=master)](https://travis-ci.org/jconstam/convmgr)
+[![Coverage Status](https://coveralls.io/repos/github/jconstam/convmgr/badge.svg?branch=master)](https://coveralls.io/github/jconstam/convmgr?branch=master)
 
 ## Command Overview
 `convmgr -i <workPath> -o <outputDir> -w <watchDir>`
