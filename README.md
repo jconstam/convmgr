@@ -1,7 +1,9 @@
 # Conversion Manager
 ## Overview
 A simple manager tool for Handbrake or similar video conversion applications.
+
 Designed to run as a cronjob.  Takes in requests of new paths of videos to convert and then monitors their progression through being queued, converted, and finished.
+
 Supports Python 3.5, 3.6, 3.7, 3.8
 
 [![Build Status](https://dev.azure.com/callmebob0963/GitHub%20Projects/_apis/build/status/jconstam.convmgr?branchName=master)](https://dev.azure.com/callmebob0963/GitHub%20Projects/_build/latest?definitionId=8&branchName=master)
@@ -9,8 +11,11 @@ Supports Python 3.5, 3.6, 3.7, 3.8
 
 ## Command Overview
 `convmgr -i <workPath> -o <outputDir> -w <watchDir>`
+
 workPath - The root directory where Handbrake is managing videos.
+
 outputDir - The directory under the root where Handbrake stores video files after they are converted.  Optional - defaults to "Output"
+
 watchDir - The directory under the root which Handbrake monitors to automatically convert video files.  Optional - defaults to "Watch"
 
 ## High-Level Design
@@ -34,9 +39,11 @@ Any requests can be added via a JSON snippet file.  This file should be a dictio
 
 ## Configuration
 In order to configure the system, a JSON file named "config.json" should be placed in the root directory.
+
 The following values are supported:
+
 Value Name|Description
-----------------------
+----------|-----------
 pbAPIKey|API Key for Pushbullet. If not specified, notifications are disabled.
 
 ## Notification
