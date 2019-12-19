@@ -16,3 +16,6 @@ install:
   
 script: 
   - pytest --cov=convmgr --cov-report=xml
+
+after_success:
+  - coveralls
