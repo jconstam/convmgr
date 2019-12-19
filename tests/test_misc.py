@@ -30,21 +30,19 @@ def test_setupDirectories( ):
     if os.path.exists( testPath ):
         shutil.rmtree( testPath )
     
-    misc.setupDirectories( argparse.Namespace( workPath=testDir, inputDir='input', outputDir='output', watchDir='watch' ) )
+    misc.setupDirectories( argparse.Namespace( workPath=testDir, outputDir='output', watchDir='watch' ) )
 
     assert os.path.exists( testPath )
-    assert os.path.exists( os.path.join( testPath, 'input' ) )
     assert os.path.exists( os.path.join( testPath, 'output' ) )
     assert os.path.exists( os.path.join( testPath, 'watch' ) )
 
     shutil.rmtree( testPath )
 
 @mock.patch( 'argparse.ArgumentParser.parse_args',
-            return_value=argparse.Namespace( workPath='testing', inputDir='input', outputDir='output', watchDir='watch' ) )
+            return_value=argparse.Namespace( workPath='testing', outputDir='output', watchDir='watch' ) )
 def test_parseArgs( mock_args ):
     args = misc.parseArgs( )
 
     assert args.workPath == 'testing'
-    assert args.inputDir == 'input'
     assert args.outputDir == 'output'
     assert args.watchDir == 'watch'
