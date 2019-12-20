@@ -53,7 +53,7 @@ Notifications are managed through Pushbullet.
 ## Todo
 - [x] Add status module
 - [x] Add request module
-- [ ] Add config module
+- [x] Add config module
 - [ ] Add notification module
 - [ ] Add state machine
 - [ ] Setup to deploy on PyPi
