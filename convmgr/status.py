@@ -27,12 +27,5 @@ class convmgrstatus:
     def clearData( self ):
         self.data = { }
     
-    def addFile( self, fileName, fileStatus ):
-        if not self.data:
-            self.clearData( )
-        
-        key = '{}'.format( fileStatus )
-        if not key in self.data:
-            self.data[ key ] = [ fileName ]
-        else:
-            self.data[ key ].append( fileName )
+    def addData( self, key, value ):
+        self.data[ key ] = value

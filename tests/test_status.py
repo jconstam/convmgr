@@ -2,66 +2,55 @@ import os
 import pytest
 
 from convmgr import status
+from tests import common
 
-rootPath = os.path.dirname( os.path.realpath( __file__ ) )
-filePath = os.path.join( rootPath, status.convmgrstatus.fileName )
+def setup_function( ):
+    common.setupRoot( )
+def teardown_function( ):
+    common.cleanupRoot( )
 
 @pytest.fixture
 def testData( ):
-    return status.convmgrstatus( rootPath )
+    return status.convmgrstatus( common.rootPath )
 @pytest.fixture
 def testDataNotEmpty( ):
-    data = status.convmgrstatus( rootPath )
-    data.addFile( 'waitFile', status.FILE_STATUS.WAITING )
-    data.addFile( 'progFile', status.FILE_STATUS.IN_PROGRESS )
-    data.addFile( 'doneFile', status.FILE_STATUS.DONE )
+    data = status.convmgrstatus( common.rootPath )
+    data.addData( 'key1', 'value1' )
+    data.addData( 'key2', 'value2' )
+    data.addData( 'key3', 'value3' )
     return data
     
 def test_constructor( testData ):
-    assert testData.fileName == filePath
+    assert testData.fileName == common.createTestPath( status.convmgrstatus.fileName )
 
-@pytest.mark.parametrize( 'type', [ status.FILE_STATUS.WAITING, status.FILE_STATUS.IN_PROGRESS, status.FILE_STATUS.DONE ] )
-def test_addDataEmpty( testData, type ):
+def test_addDataEmpty( testData ):
     assert not testData.data
 
-    testData.addFile( 'file1', str( type ) )
-    assert 'file1' in testData.data[ str( type ) ]
+    testData.addData( 'key1', 'value1' )
+    assert testData.data[ 'key1' ] == 'value1'
 
     testData.clearData( )
     assert not testData.data
 
-@pytest.mark.parametrize( 'type', [ status.FILE_STATUS.WAITING, status.FILE_STATUS.IN_PROGRESS, status.FILE_STATUS.DONE ] )
-def test_addDataNotEmpty( testDataNotEmpty, type ):
-    assert testDataNotEmpty.data
-    assert testDataNotEmpty.data[ str( status.FILE_STATUS.WAITING ) ]
-    assert testDataNotEmpty.data[ str( status.FILE_STATUS.IN_PROGRESS ) ]
-    assert testDataNotEmpty.data[ str( status.FILE_STATUS.DONE ) ]
-
-    testDataNotEmpty.addFile( 'file2', str( type ) )
-    assert 'file2' in testDataNotEmpty.data[ str( type ) ]
+def test_addDataNotEmpty( testDataNotEmpty ):
+    testDataNotEmpty.addData( 'key4', 'value4' )
+    assert testDataNotEmpty.data[ 'key4' ] == 'value4'
 
     testDataNotEmpty.clearData( )
     assert not testDataNotEmpty.data
 
 def test_readWriteFile( testDataNotEmpty ):
+    filePath = common.createTestPath( status.convmgrstatus.fileName )
     if os.path.exists( filePath ):
         os.remove( filePath )
-    
-    assert not os.path.exists( filePath )
 
-    if os.path.exists( filePath ):
-        os.remove( filePath )
     testDataNotEmpty.saveFile( )
-
     assert os.path.exists( filePath )
 
-    newData = status.convmgrstatus( rootPath )
+    newData = status.convmgrstatus( common.rootPath )
     newData.loadFile( )
 
     for type in testDataNotEmpty.data:
         assert type in newData.data
         for file in testDataNotEmpty.data[ type ]:
-            assert file in newData.data[ type ]
-    
-    os.remove( filePath )
-            
+            assert file in newData.data[ type ]            

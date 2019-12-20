@@ -9,37 +9,34 @@ except ImportError:
     import mock  # python 2.6-3.2
 
 from convmgr import misc
+from tests import common
+
+def setup_function( ):
+    common.setupRoot( )
+def teardown_function( ):
+    common.cleanupRoot( )
 
 def test_createDir():
-    testPath = os.path.realpath( 'testDir' )
-    if os.path.exists( testPath ):
-        shutil.rmtree( testPath )
-    assert not os.path.exists( testPath )
+    testPath = common.createTestPath( 'testDir' )
+    common.cleanupPath( testPath )
 
     misc.createDir( testPath )
     assert os.path.exists( testPath )
     
     misc.createDir( testPath )
     assert os.path.exists( testPath )
-    
-    shutil.rmtree( testPath )
 
 def test_setupDirectories( ):
-    testDir = 'testDir'
-    testPath = os.path.realpath( testDir )
-    if os.path.exists( testPath ):
-        shutil.rmtree( testPath )
+    testPath = common.createTestPath( 'testDir' )
+    common.cleanupPath( testPath )
     
-    misc.setupDirectories( argparse.Namespace( workPath=testDir, outputDir='output', watchDir='watch' ) )
+    misc.setupDirectories( argparse.Namespace( workPath=testPath, outputDir='output', watchDir='watch' ) )
 
     assert os.path.exists( testPath )
     assert os.path.exists( os.path.join( testPath, 'output' ) )
     assert os.path.exists( os.path.join( testPath, 'watch' ) )
 
-    shutil.rmtree( testPath )
-
-@mock.patch( 'argparse.ArgumentParser.parse_args',
-            return_value=argparse.Namespace( workPath='testing', outputDir='output', watchDir='watch' ) )
+@mock.patch( 'argparse.ArgumentParser.parse_args', return_value=argparse.Namespace( workPath='testing', outputDir='output', watchDir='watch' ) )
 def test_parseArgs( mock_args ):
     args = misc.parseArgs( )
 
