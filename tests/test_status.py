@@ -27,17 +27,19 @@ def test_addDataEmpty( testData ):
     assert not testData.data
 
     testData.addData( 'key1', 'value1' )
-    assert testData.data[ 'key1' ] == 'value1'
+    assert testData.getData( 'key1' ) == 'value1'
 
     testData.clearData( )
     assert not testData.data
+    assert testData.getData( 'key1' ) == ''
 
 def test_addDataNotEmpty( testDataNotEmpty ):
     testDataNotEmpty.addData( 'key4', 'value4' )
-    assert testDataNotEmpty.data[ 'key4' ] == 'value4'
+    assert testDataNotEmpty.getData( 'key4' ) == 'value4'
 
     testDataNotEmpty.clearData( )
     assert not testDataNotEmpty.data
+    assert testDataNotEmpty.getData( 'key4' ) == ''
 
 def test_readWriteFile( testDataNotEmpty ):
     filePath = common.createTestPath( status.convmgrstatus.fileName )
@@ -50,7 +52,7 @@ def test_readWriteFile( testDataNotEmpty ):
     newData = status.convmgrstatus( common.rootPath )
     newData.loadFile( )
 
-    for type in testDataNotEmpty.data:
-        assert type in newData.data
-        for file in testDataNotEmpty.data[ type ]:
-            assert file in newData.data[ type ]            
+    for key in testDataNotEmpty.data:
+        assert key in newData.data
+        for file in testDataNotEmpty.data[ key ]:
+            assert file in newData.data[ key ]            

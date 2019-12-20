@@ -29,3 +29,8 @@ class convmgrstatus:
     
     def addData( self, key, value ):
         self.data[ key ] = value
+    def getData( self, key ):
+        if key in self.data:
+            return self.data[ key ]
+        else:
+            return ''
