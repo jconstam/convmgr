@@ -4,3 +4,4 @@ coverage==4.4.0
 pytest-azurepipelines
 coveralls
 pushbullet.py
+pyyaml
