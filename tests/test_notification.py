@@ -8,10 +8,7 @@ import pushbullet
 from convmgr import notification, config, status
 from tests import common
 
-try:
-    from unittest import mock  # python 3.3+
-except ImportError:
-    import mock  # python 2.6-3.2
+from unittest import mock  # python 3.3+
 
 testConfigFile = config.convmgrconfig( common.rootPath )
 testStatusFile = status.convmgrstatus( common.rootPath )
@@ -45,3 +42,34 @@ def test_constructor( testData ):
     assert not testData.pb
     assert testData.maxNotifyPeriod == 1
     assert testData.lastNotifyTime == testDate
+
+def test_notifyNoPB( testData ):
+    testData.pb = None
+
+    setTime = datetime.datetime.now( )
+    testData.lastNotifyTime = setTime
+    testData.doNotify( 1, 2 )
+
+    assert testData.lastNotifyTime == setTime
+def test_notifyTooRecent( testData ):
+    testData.pb = mock.MagicMock( )
+    testData.pb.push_note = mock.MagicMock( )
+    testData.maxNotifyPeriod = 60
+
+    lastTime = datetime.datetime.now( ) - datetime.timedelta( seconds=40 )
+    testData.lastNotifyTime = lastTime
+    testData.doNotify( 1, 2 )
+
+    testData.pb.push_note.assert_not_called( )
+    assert testData.lastNotifyTime == lastTime
+def test_notify( testData ):
+    testData.pb = mock.MagicMock( )
+    testData.pb.push_note = mock.MagicMock( )
+    testData.maxNotifyPeriod = 60
+
+    lastTime = datetime.datetime.now( ) - datetime.timedelta( seconds=61 )
+    testData.lastNotifyTime = lastTime
+    testData.doNotify( 1, 2 )
+
+    testData.pb.push_note.assert_called_once( )
+    assert testData.lastNotifyTime > lastTime

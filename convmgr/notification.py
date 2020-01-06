@@ -31,7 +31,11 @@ class convmgrnotification:
         else:
             self.lastNotifyTime = datetime.datetime.now( )
     
-    # def doNotify( ):
-    #     currTime = datetime.now( )
-    #     if ( currTime - self.lastNotifyTime ).total_seconds( ) >= self.maxNotifyPeriod:
-    #         pass
+    def doNotify( self, watchCount, outCount ):
+        if self.pb:
+            currTime = datetime.datetime.now( )
+            if ( currTime - self.lastNotifyTime ).total_seconds( ) >= self.maxNotifyPeriod:
+                self.pb.push_note( 'Sync Files', 'Date: {}\nTime: {}\nWatch: {}\nOutput: {}'.format( 
+                    currTime.strftime( '%Y/%m/%d' ), currTime.strftime( '%H:%M:%S'), watchCount, outCount ) )
+                self.lastNotifyTime = currTime
+
