@@ -60,7 +60,7 @@ def test_notifyTooRecent( testData ):
     testData.lastNotifyTime = lastTime
     testData.doNotify( 1, 2 )
 
-    testData.pb.push_note.assert_not_called( )
+    assert testData.pb.push_note.call_count == 0
     assert testData.lastNotifyTime == lastTime
 def test_notify( testData ):
     testData.pb = mock.MagicMock( )
@@ -71,5 +71,5 @@ def test_notify( testData ):
     testData.lastNotifyTime = lastTime
     testData.doNotify( 1, 2 )
 
-    testData.pb.push_note.assert_called_once( )
+    assert testData.pb.push_note.call_count == 1
     assert testData.lastNotifyTime > lastTime
