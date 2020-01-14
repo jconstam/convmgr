@@ -48,7 +48,7 @@ def test_notifyNoPB( testData ):
 
     setTime = datetime.datetime.now( )
     testData.lastNotifyTime = setTime
-    testData.doNotify( 1, 2 )
+    testData.doNotify( 1, 2, 3 )
 
     assert testData.lastNotifyTime == setTime
 def test_notifyTooRecent( testData ):
@@ -58,7 +58,7 @@ def test_notifyTooRecent( testData ):
 
     lastTime = datetime.datetime.now( ) - datetime.timedelta( seconds=40 )
     testData.lastNotifyTime = lastTime
-    testData.doNotify( 1, 2 )
+    testData.doNotify( 1, 2, 3 )
 
     assert testData.pb.push_note.call_count == 0
     assert testData.lastNotifyTime == lastTime
@@ -69,7 +69,7 @@ def test_notify( testData ):
 
     lastTime = datetime.datetime.now( ) - datetime.timedelta( seconds=61 )
     testData.lastNotifyTime = lastTime
-    testData.doNotify( 1, 2 )
+    testData.doNotify( 1, 2, 3 )
 
     assert testData.pb.push_note.call_count == 1
     assert testData.lastNotifyTime > lastTime

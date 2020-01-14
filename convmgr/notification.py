@@ -31,11 +31,11 @@ class convmgrnotification:
         else:
             self.lastNotifyTime = datetime.datetime.now( )
     
-    def doNotify( self, watchCount, outCount ):
+    def doNotify( self, waitingCount, inProgressCount, doneCount ):
         if self.pb:
             currTime = datetime.datetime.now( )
             if ( currTime - self.lastNotifyTime ).total_seconds( ) >= self.maxNotifyPeriod:
-                self.pb.push_note( 'Sync Files', 'Date: {}\nTime: {}\nWatch: {}\nOutput: {}'.format( 
-                    currTime.strftime( '%Y/%m/%d' ), currTime.strftime( '%H:%M:%S'), watchCount, outCount ) )
+                self.pb.push_note( 'Sync Files', 'Date: {}\nTime: {}\nWaiting: {}\nIn Progress: {}\nDone: {}'.format( 
+                    currTime.strftime( '%Y/%m/%d' ), currTime.strftime( '%H:%M:%S'), waitingCount, inProgressCount, doneCount ) )
                 self.lastNotifyTime = currTime
 
